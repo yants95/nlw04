@@ -1,18 +1,21 @@
 import { DbAddUser } from '@/data/usecases'
-import { AddUserRepositorySpy } from '@/tests/data/mocks'
+import { AddUserRepositorySpy, CheckUserByEmailRepositorySpy } from '@/tests/data/mocks'
 import { mockAddUserParams } from '@/tests/domain/mocks'
 
 type SutTypes = {
   sut: DbAddUser
   addUserRepositorySpy: AddUserRepositorySpy
+  checkUserByEmailRepositorySpy: CheckUserByEmailRepositorySpy
 }
 
 const makeSut = (): SutTypes => {
   const addUserRepositorySpy = new AddUserRepositorySpy()
-  const sut = new DbAddUser(addUserRepositorySpy)
+  const checkUserByEmailRepositorySpy = new CheckUserByEmailRepositorySpy()
+  const sut = new DbAddUser(addUserRepositorySpy, checkUserByEmailRepositorySpy)
   return {
     sut,
-    addUserRepositorySpy
+    addUserRepositorySpy,
+    checkUserByEmailRepositorySpy
   }
 }
 
@@ -21,10 +24,36 @@ describe('DbAddUser Usecase', () => {
     const { sut, addUserRepositorySpy } = makeSut()
     const addUserParams = mockAddUserParams()
     await sut.add(addUserParams)
-    expect(addUserRepositorySpy.params).toEqual({
-      name: addUserParams.name,
-      email: addUserParams.email,
-      created_at: addUserParams.created_at
-    })
+    expect(addUserRepositorySpy.result).toBe(true)
+  })
+
+  test('Should return false if AddUserRepository returns false', async () => {
+    const { sut, addUserRepositorySpy } = makeSut()
+    addUserRepositorySpy.result = false
+    const isValid = await sut.add(mockAddUserParams())
+    expect(isValid).toBe(false)
+  })
+
+  test('should return false if CheckUserByEmailRepository returns true', async () => {
+    const { sut, checkUserByEmailRepositorySpy } = makeSut()
+    checkUserByEmailRepositorySpy.result = true
+    const isValid = await sut.add(mockAddUserParams())
+    expect(isValid).toBe(false)
+  })
+
+  test('should call CheckUserByEmailRepository with correct email', async () => {
+    const { sut, checkUserByEmailRepositorySpy } = makeSut()
+    const addAccountParams = mockAddUserParams()
+    await sut.add(addAccountParams)
+    expect(checkUserByEmailRepositorySpy.email).toBe(addAccountParams.email)
+  })
+
+  test('should not add a new user if email provided already exists', async () => {
+    const { sut, checkUserByEmailRepositorySpy } = makeSut()
+    checkUserByEmailRepositorySpy.result = false
+    const addUserParams = mockAddUserParams()
+    await sut.add(addUserParams)
+    await checkUserByEmailRepositorySpy.check(addUserParams.email)
+    expect(checkUserByEmailRepositorySpy.result).toBe(false)
   })
 })

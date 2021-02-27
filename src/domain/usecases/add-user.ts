@@ -1,10 +1,12 @@
-import { UserModel } from "@/domain/models"
-
 export interface AddUser {
-  check (email: string): Promise<AddUser.Result>
+  add (user: AddUser.Params): Promise<AddUser.Result>
 }
 
 export namespace AddUser {
-  export type Params = Omit<UserModel, 'id'>
-  export type Result = void
+  export type Params = {
+    name: string
+    email: string
+    created_at: Date
+  }
+  export type Result = boolean
 }
