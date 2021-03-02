@@ -22,7 +22,7 @@ describe('DbAddSurvey Usecase', () => {
     const addSurveyParams = mockAddSurveyParams()
     await sut.add(addSurveyParams)
     expect(addSurveyRepositorySpy.params).toEqual({
-      title: 'a',
+      title: addSurveyParams.title,
       description: addSurveyParams.description,
       created_at: addSurveyParams.created_at
     })
