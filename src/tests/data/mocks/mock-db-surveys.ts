@@ -1,4 +1,4 @@
-import { LoadSurveysRepository, AddSurveyRepository, SaveSurveyAnswerRepository } from '@/data/protocols'
+import { LoadSurveysRepository, AddSurveyRepository, LoadSurveyByIdRepository } from '@/data/protocols'
 import { mockSurveysModel } from '@/tests/data/mocks'
 
 export class LoadSurveysRepositorySpy implements LoadSurveysRepository {
@@ -17,10 +17,10 @@ export class AddSurveyRepositorySpy implements AddSurveyRepository {
   }
 }
 
-export class SaveSurveysAnswerRepositorySpy implements SaveSurveyAnswerRepository {
-  params: SaveSurveyAnswerRepository.Params
+export class LoadSurveyByIdRepositorySpy implements LoadSurveyByIdRepository {
+  id: string
 
-  async save (params: SaveSurveyAnswerRepository.Params): Promise<void> {
-    this.params = params
+  async load (id: string): Promise<void> {
+    this.id = id
   }
 }
