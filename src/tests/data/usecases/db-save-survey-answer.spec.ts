@@ -23,7 +23,7 @@ describe('DbSaveSurveyAnswer Usecase', () => {
     await sut.save(mockAddSurveyAnswerParams())
     expect(saveSurveysAnwserRepositorySpy.params).toEqual({
       value: addASurveyAnswerParams.value,
-      user_id: addASurveyAnswerParams.user_id
+      survey_id: addASurveyAnswerParams.survey_id
     })
   })
 })

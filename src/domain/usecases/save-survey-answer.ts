@@ -5,6 +5,6 @@ export interface SaveSurveyAnswer {
 export namespace SaveSurveyAnswer {
   export type Params = {
     value: number
-    user_id: string
+    survey_id: string
   }
 }
