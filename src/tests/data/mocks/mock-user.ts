@@ -1,6 +1,6 @@
 import { UserModel } from '@/domain/models'
 
-export const mockUsersModel = () : UserModel[] => {
+export const mockUsersModel = (): UserModel[] => {
   return [{
     id: 'any_id',
     name: 'any_name',

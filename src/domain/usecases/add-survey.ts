@@ -1,7 +1,7 @@
 import { SurveyModel } from '@/domain/models'
 
 export interface AddSurvey {
-  add (data: AddSurvey.Params): Promise<AddSurvey.Result>
+  add: (data: AddSurvey.Params) => Promise<AddSurvey.Result>
 }
 
 export namespace AddSurvey {

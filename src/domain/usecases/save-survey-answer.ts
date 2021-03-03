@@ -1,5 +1,5 @@
 export interface SaveSurveyAnswer {
-  save (params: SaveSurveyAnswer.Params): Promise<void>
+  save: (params: SaveSurveyAnswer.Params) => Promise<void>
 }
 
 export namespace SaveSurveyAnswer {

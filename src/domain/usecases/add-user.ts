@@ -1,5 +1,5 @@
 export interface AddUser {
-  add (user: AddUser.Params): Promise<AddUser.Result>
+  add: (user: AddUser.Params) => Promise<AddUser.Result>
 }
 
 export namespace AddUser {
