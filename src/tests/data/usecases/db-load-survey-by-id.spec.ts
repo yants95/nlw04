@@ -16,10 +16,10 @@ const makeSut = (): SutTypes => {
 }
 
 describe('DbLoadSurveyById Usecase', () => {
-  test('should call LoadSurveyByIdRepository', async () => {
+  test('should be able to call LoadSurveyByIdRepository', async () => {
     const { sut, loadSurveyByIdRepositorySpy } = makeSut()
-    const tools = jest.spyOn(loadSurveyByIdRepositorySpy, 'load')
+    const survey = jest.spyOn(loadSurveyByIdRepositorySpy, 'load')
     await sut.load('any_id')
-    expect(tools).toHaveBeenCalledWith('any_id')
+    expect(survey).toHaveBeenCalledWith('any_id')
   })
 })
