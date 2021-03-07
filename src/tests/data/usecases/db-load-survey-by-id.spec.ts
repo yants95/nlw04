@@ -22,4 +22,11 @@ describe('DbLoadSurveyById Usecase', () => {
     await sut.load('any_id')
     expect(survey).toHaveBeenCalledWith('any_id')
   })
+
+  test('should return null if LoadSurveyByIdRepository returns null', async () => {
+    const { sut, loadSurveyByIdRepositorySpy } = makeSut()
+    loadSurveyByIdRepositorySpy.result = null
+    const survey = await sut.load('any_id')
+    expect(survey).toBeNull()
+  })
 })
