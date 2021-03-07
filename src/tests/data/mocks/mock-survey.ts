@@ -8,3 +8,12 @@ export const mockSurveysModel = (): SurveyModel[] => {
     created_at: new Date('2021-02-20')
   }]
 }
+
+export const mockSurveyModel = (): SurveyModel => {
+  return {
+    id: 'any_id',
+    title: 'any_title',
+    description: 'any_description',
+    created_at: new Date('2021-02-20')
+  }
+}

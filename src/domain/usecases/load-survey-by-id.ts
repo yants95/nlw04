@@ -1,7 +1,7 @@
 import { SurveyModel } from '@/domain/models'
 
 export interface LoadSurveyById {
-  load: (id: string) => Promise<LoadSurveyById.Result>
+  load: (id: string) => Promise<LoadSurveyById.Result | null>
 }
 
 export namespace LoadSurveyById {
